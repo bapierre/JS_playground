@@ -2,6 +2,43 @@ const board = document.getElementById("board");
 const context = board.getContext("2d");
 
 
+window.addEventListener("keydown", function(event){
+    if (event.keyCode === 40 ){
+        playerMoveDown(user2);
+    }
+    if (event.keyCode === 38){
+        playerMoveUp(user2);
+    }
+    if (event.keyCode === 83 ){
+        playerMoveDown(user1);
+    }
+    if (event.keyCode === 90){
+        playerMoveUp(user1);
+    }
+    else{
+        return;
+    }
+});
+
+
+function playerMoveDown(player){
+    if(player.y + player.height > board.height){
+        return;
+    }
+    else{
+        player.y = player.y +10;
+    }
+}
+
+function playerMoveUp(player){
+    if(player.y < 0){
+        return;
+    }
+    else{
+        player.y = player.y -10;
+    }
+}
+
 
 const user1 ={
     x: 0,
@@ -27,6 +64,14 @@ const ball ={
     y: board.height/2,
     radius: 10,
     color: 'white',
+    xvelocity: 5,
+    yvelocity: 5,
+    center: function(){
+        this.x = board.width/2;
+        this.y = board.height/2; 
+        this.xvelocity = 5;
+        this.yvelocity = 5;
+    }
 }
 
 const net={
@@ -75,6 +120,44 @@ function render(){
     drawScore(user2.score,(board.width/2 +50),65,'white');
 }
 
+function update(){
+
+    if(ball.y+ball.radius>board.height && ball.yvelocity > 0){
+        ball.yvelocity = -ball.yvelocity;
+    }
+    if(ball.y-ball.radius<0 && ball.yvelocity < 0){
+        ball.yvelocity = -ball.yvelocity;
+    }
+
+
+    if(ball.x-ball.radius<0+user1.width/2){
+        if(ball.y >user1.y && ball.y < user1.y+user1.height){
+            ball.xvelocity = -ball.xvelocity;
+        }
+        else{
+            user2.score = user2.score+1;
+            ball.center();
+             
+        }
+    }
+    if(ball.x+ball.radius>board.width-user2.width/2){
+        if(ball.y >user2.y && ball.y < user2.y+user2.height){
+            ball.xvelocity = -ball.xvelocity;
+        }
+        else{
+            user1.score = user1.score+1;
+            ball.center();
+            ball.xvelocity = -ball.xvelocity;
+            
+        }
+    }
+
+
+    ball.x += ball.xvelocity;
+    ball.y += ball.yvelocity;
+}
+
+
 
 function game(){
     update();
@@ -82,4 +165,4 @@ function game(){
 }
 
 
-render()
+setInterval(game,1000/30);
