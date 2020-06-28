@@ -7,13 +7,57 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
+    background: #010615;
+    font-family: Baloo;
+    
+    
+}
+
+
+
+.about_content{
+    position: relative;
+    top: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     min-height: auto; /* might have to change to 300vh*/
-    background: #010615;
+    
+    
 }    
+
+
+.header{
+    width: 100%;
+    position: absolute;
+    
+}
+.header ul{
+    height: 50px;
+    float: right;
+}
+.header ul li{
+    display: inline-block;
+    padding: 40px 15px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 20px;
+}
+
+
+a{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    text-decoration: none;
+    color: #fff;
+    
+}
+
+
+
 
 .box{
     position: relative;
