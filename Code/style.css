@@ -26,6 +26,16 @@ body{
     font-size: 20px;
 }
 
+a{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    text-decoration: none;
+    color: #fff;
+    
+}
+
 .header h2{
     text-align: center;
     color: #ffffff;
@@ -65,7 +75,7 @@ body{
 
     position: relative;
     top: 700px;   
-    
+    text-decoration: none;
 
 }
 
