@@ -1,6 +1,7 @@
 const board = document.getElementById("board");
 const context = board.getContext("2d");
 
+var refresh;
 
 window.addEventListener("keydown", function(event){
     if (event.keyCode === 40 ){
@@ -46,7 +47,13 @@ const user1 ={
     width: 10,
     height: 100,
     score: 0,
-    color: 'white'
+    color: 'white',
+
+    reset: function(){
+        this.y =board.height/2 -50;
+        this.score=0;
+    }
+
 }
 
 
@@ -56,7 +63,12 @@ const user2 ={
     width: 10,
     height: 100,
     score: 0,
-    color: 'white'
+    color: 'white',
+
+    reset: function(){
+        this.y =board.height/2 -50;
+        this.score=0;
+    }
 }
 
 const ball ={
@@ -155,6 +167,17 @@ function update(){
 
     ball.x += ball.xvelocity;
     ball.y += ball.yvelocity;
+
+
+    if(user1.score >= 7){
+        finalScore.innerHTML = 'Le joueur 1 remporte la partie';
+        end();
+    }
+    if(user2.score >= 7){
+        finalScore.innerHTML = 'Le joueur 2 remporte la partie';
+        end();
+    }
+
 }
 
 
@@ -164,13 +187,9 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     res = Math.floor(Math.random() * (max - min +1)) + min;
     if(res==0){
-        console.log('hit');
-        
         return 1;
     }
     else{
-        console.log('non hit');
-        
         return res;
     }
   }
@@ -183,5 +202,18 @@ function game(){
     render();
 }
 
+function start(){
+    user1.reset();
+    user2.reset();
+    startBtn.style.visibility = 'hidden';
+    finalScore.style.visibility = 'hidden';
+    refresh = setInterval(game,1000/30);
+}
 
-setInterval(game,1000/30);
+function end(){
+    clearInterval(refresh);
+    finalScore.style.visibility = 'visible';
+    startBtn.style.visibility = 'visible';
+}
+game();
+finalScore.style.visibility = 'hidden';
