@@ -70,7 +70,7 @@ const ball ={
         this.x = board.width/2;
         this.y = board.height/2; 
         this.xvelocity = 5;
-        this.yvelocity = 5;
+        this.yvelocity = getRandomIntInclusive(-5,5);
     }
 }
 
@@ -156,6 +156,25 @@ function update(){
     ball.x += ball.xvelocity;
     ball.y += ball.yvelocity;
 }
+
+
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    res = Math.floor(Math.random() * (max - min +1)) + min;
+    if(res==0){
+        console.log('hit');
+        
+        return 1;
+    }
+    else{
+        console.log('non hit');
+        
+        return res;
+    }
+  }
+
 
 
 
